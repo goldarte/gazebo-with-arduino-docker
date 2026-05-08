@@ -1,0 +1,1 @@
+docker build -t goldarte/gazebo-with-arduino .
