@@ -1,8 +1,8 @@
 FROM ubuntu:20.04
 
 RUN apt-get update && apt-get install -y \
-    gnupg2 wget
-RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+    gnupg2 wget lsb-release
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
 RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
 RUN apt-get install -y \
     build-essential \
