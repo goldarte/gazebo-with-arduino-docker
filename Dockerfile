@@ -14,6 +14,8 @@ RUN apt-get install -y \
     curl \
     gazebo11 libgazebo11-dev
 
+RUN apt-get install -y mesa-utils libgl1-mesa-glx
+
 ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
