@@ -1,9 +1,14 @@
-FROM gazebo:libgazebo11
+FROM ubuntu:20.04
 
-RUN apt-get update && apt-get install -y \ 
+RUN apt-get update && apt-get install -y \
+    gnupg2
+RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+RUN https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+RUN apt-get install -y \
     build-essential \
     libsdl2-dev \
-    curl
+    curl \
+    gazebo11 libgazebo11-dev
 
 ARG USERNAME=ubuntu
 ARG USER_UID=1000
@@ -28,6 +33,8 @@ WORKDIR /home/$USERNAME
 # install arduino-cli
 RUN mkdir -p ~/.local/bin && curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/.local/bin sh
 ENV PATH="/home/$USERNAME/.local/bin:${PATH}"
+
+RUN echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc
 
 RUN mkdir -p /home/${USERNAME}/Arduino
 RUN mkdir -p /home/${USERNAME}/.config/arduino
