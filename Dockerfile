@@ -45,3 +45,7 @@ RUN echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc
 RUN mkdir -p /home/${USERNAME}/Arduino
 RUN mkdir -p /home/${USERNAME}/.config/arduino
 RUN mkdir -p /home/${USERNAME}/.arduino15
+
+# install uv and python 3.12 for flix tools
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+RUN . $HOME/.bashrc && uv python install 3.12
