@@ -18,7 +18,6 @@ jobs:
     uses: docker/github-builder/.github/workflows/build.yml@v1
     permissions:
       contents: read
-      packages: write
       id-token: write
     with:
       output: image
@@ -28,7 +27,7 @@ jobs:
         default=ubuntu-24.04
         linux/amd64=ubuntu-24.04
         linux/arm64=ubuntu-24.04-arm
-      meta-images: ghcr.io/${{ github.repository }}
+      meta-images: ${{ vars.DOCKERHUB_USERNAME }}/gazebo-with-arduino
       meta-tags: |
         type=ref,event=branch
         type=ref,event=tag
@@ -36,6 +35,6 @@ jobs:
         type=raw,value=latest,enable={{is_default_branch}}
     secrets:
       registry-auths: |
-        - registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+        - registry: docker.io
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
